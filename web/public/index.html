@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Plant Monitor</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/29fc6c9692.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    <div id="mainWrapper">
+        <!--
+        <div id="toolbar">
+            <button class="important" id="exportButton">Export</button>
+        </div>
+        -->
+        <div id="plants"></div>
+    </div>
+</div>
+
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>

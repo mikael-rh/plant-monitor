@@ -1,0 +1,104 @@
+* {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #ddd;
+}
+
+#mainWrapper {
+    flex: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#plants {
+    display: grid;
+    flex: 1;
+    margin: 40px;
+    grid-gap: 20px;
+}
+
+@media only screen and (min-width: 750px) {
+    #plants {
+        grid-auto-flow: column;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+}
+
+#toolbar {
+    margin: 40px;
+}
+
+.card, button {
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    border: 1px solid #DDD;
+    border-bottom-width: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+button.important {
+    background-color: #9ccc65;
+    border-color: #689f38;
+}
+
+button:active {
+    border-bottom-width: 1px;
+    margin-top: 2px;
+}
+
+button:focus {
+    outline: none;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+
+.card.selected {
+    outline: none;
+    border-color: #9ccc65;
+}
+
+.card.dark {
+    background: #212121;
+    color: white;
+}
+
+.bar {
+    border-radius: 3px;
+    background: #ddd;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    border-radius: 3px;
+    background: #9ccc65;
+    padding: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: width .15s;
+}
+
+.label {
+    float: right;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.hidden {
+    display:none;
+}
