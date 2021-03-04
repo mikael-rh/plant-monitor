@@ -13,7 +13,7 @@ function createBar(content, unit = "", min = 0, max = 1) {
         `<div class="label bar-tick" style="right:0;">${max}</div>`);
 
     let fill = $(`<div class="bar bar-${name}"></div>`);
-    fill.html(`${content}: <span class="bar-value"></span> ${unit}`);
+    fill.html(`${content}: <span class="bar-value"></span>${unit}`);
     fill.data("min", min).data("max", max);
     bar.append(fill);
 
@@ -29,7 +29,7 @@ function createSite() {
             `<b>Plant ${i + 1}</b>` +
             '<span class="label" style="float:right;"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
         );
-        plant.append(createBar("Moisture", "", 0, 3));
+        plant.append(createBar("Moisture", "", 0, 1));
 
         plants.append(plant);
     }
@@ -44,7 +44,7 @@ function updateBar(bar, value) {
     let min = bar.data("min");
     let max = bar.data("max");
 
-    let width = (clamp(value, min, max) - min) / (max - min);
+    let width = (value - min) / (max - min);
     bar.css("width", (width * 100) + "%");
     bar.find(".bar-value").text(value.toFixed(2));
 }
@@ -52,8 +52,10 @@ function updateBar(bar, value) {
 function updatePlant(snapshot, index) {
     let plant = $(`#plant${index}`);
     if (snapshot.exists()) {
+        console.log("Updated data for plant " + index);
         let data = snapshot.val();
         plant.find(".timestamp").text(data["timestamp"].split(".")[0]);
+        // Display soil moisture in percent
         updateBar(plant.find(".bar-moisture"), data["soilMoisture"]);
     } else {
         plant.find(".timestamp").text("Failed to fetch");
