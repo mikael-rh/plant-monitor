@@ -66,6 +66,7 @@ button.important {
 button:active {
     border-bottom-width: 1px;
     top: 2px;
+    margin-bottom: 2px;
 }
 
 button:focus {
