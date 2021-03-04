@@ -5,10 +5,15 @@
     --bg-color: #ddd;
     --card-color: white;
     --border-color: rgba(0, 0, 0, 0.4);
+    --link-color: #2e7d32;
 }
 
 body {
     background-color: var(--bg-color);
+}
+
+a {
+    color: var(--link-color) !important;
 }
 
 #mainWrapper {
@@ -17,10 +22,13 @@ body {
     margin: 0 auto;
 }
 
+#mainWrapper > div {
+    margin: 40px;
+}
+
 #plants {
     display: grid;
     flex: 1;
-    margin: 40px;
     grid-gap: 20px;
 }
 
@@ -32,11 +40,12 @@ body {
     }
 }
 
-#toolbar {
-    margin: 40px;
+#toolbar button {
+    margin-right: 20px;
 }
 
 button {
+    position: relative;
     background-color: var(--card-color);
     border: 1px solid var(--border-color);
     border-bottom-width: 3px;
@@ -56,7 +65,7 @@ button.important {
 
 button:active {
     border-bottom-width: 1px;
-    margin-top: 2px;
+    top: 2px;
 }
 
 button:focus {

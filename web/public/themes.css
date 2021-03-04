@@ -5,4 +5,9 @@ body.dark-theme, body.dark-theme * {
     --bg-color: #101010;
     --card-color: #212121;
     --border-color: rgba(255, 255, 255, 0.15);
+    --link-color: #9ccc65;
+}
+
+body.dark-theme .label {
+    opacity: 0.6;
 }
