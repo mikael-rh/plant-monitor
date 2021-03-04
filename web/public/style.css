@@ -22,8 +22,15 @@ a {
     margin: 0 auto;
 }
 
-#mainWrapper > div {
+#mainWrapper > * {
     margin: 40px;
+}
+
+#mainHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 }
 
 #plants {
@@ -40,8 +47,22 @@ a {
     }
 }
 
-#toolbar button {
-    margin-right: 20px;
+@media only screen and (max-width: 750px) {
+    #mainHeader {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 800px) {
+    #mainHeader {
+        display: none;
+    }
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 button {
