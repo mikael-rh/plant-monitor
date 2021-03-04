@@ -1,35 +1,52 @@
 const PLANT_COUNT = 8;
 
-function createBar(name) {
-    let className = name.toLowerCase();
-    let bar = document.createElement("div");
-    bar.className = "bar";
-    let fill = document.createElement("div");
-    fill.className = `bar-fill bar-${className}`;
-    fill.innerHTML = `${name}: <span class="${className}"></span>`;
+function clamp(val, min, max) {
+    return Math.max(Math.min(val, max), min);
+}
 
-    bar.appendChild(fill);
+function createBar(content, unit = "", min = 0, max = 1) {
+    // Create a valid name from content string
+    let name = content.toLowerCase().replace(/ /g, "-");
+
+    let bar = $(`<div class="bar-frame"></div>`);
+    bar.html(`<div class="label bar-tick">${min}</div>` +
+        `<div class="label bar-tick" style="right:0;">${max}</div>`);
+
+    let fill = $(`<div class="bar bar-${name}"></div>`);
+    fill.html(`${content}: <span class="bar-value"></span> ${unit}`);
+    fill.data("min", min).data("max", max);
+    bar.append(fill);
+
     return bar;
 }
 
 function createSite() {
-    let plants = document.getElementById("plants");
+    let plants = $("#plants");
 
     for (let i = 0; i < PLANT_COUNT; i++) {
-        let plant = document.createElement("div");
+        let plant = $(`<div class="card plant" id="plant${i}"></div>`);
+        plant.html(
+            `<b>Plant ${i + 1}</b>` +
+            '<span class="label" style="float:right;"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
+        );
+        plant.append(createBar("Moisture", "", 0, 3));
 
-        $(plant)
-            .attr("id", "plant" + i)
-            .addClass("card plant")
-            .html(
-                `<b>Plant ${i + 1}</b>` +
-                '<span class="label"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
-            );
-
-        plant.appendChild(createBar("Moisture"));
-
-        plants.appendChild(plant);
+        plants.append(plant);
     }
+}
+
+/**
+ * Resizes bar and updates content
+ * @param bar jQuery object
+ * @param value float
+ */
+function updateBar(bar, value) {
+    let min = bar.data("min");
+    let max = bar.data("max");
+
+    let width = (clamp(value, min, max) - min) / (max - min);
+    bar.css("width", (width * 100) + "%");
+    bar.find(".bar-value").text(value.toFixed(2));
 }
 
 function updatePlant(snapshot, index) {
@@ -37,9 +54,7 @@ function updatePlant(snapshot, index) {
     if (snapshot.exists()) {
         let data = snapshot.val();
         plant.find(".timestamp").text(data["timestamp"].split(".")[0]);
-        let moisture_percent = (data["soilMoisture"] * 100).toFixed(1) + "%";
-        plant.find(".bar-moisture").css("width", moisture_percent);
-        plant.find(".moisture").text(moisture_percent);
+        updateBar(plant.find(".bar-moisture"), data["soilMoisture"]);
     } else {
         plant.find(".timestamp").text("Failed to fetch");
     }
@@ -61,17 +76,17 @@ document.addEventListener("DOMContentLoaded", _ => {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-    let db = firebase.database();
-    let root = db.ref();
-
     for (let i = 0; i < PLANT_COUNT; i++) {
-        root.child("plants").child(`plant${i}`).child("latest").get()
+        let latest = firebase.database().ref(`plants/plant${i}/latest`);
+
+        // Fetch latest data
+        latest.get()
             .then(x => updatePlant(x, i))
             .catch(function (error) {
                 console.error(error);
             });
 
-        let latest = firebase.database().ref(`plants/plant${i}/latest`);
+        // Fetch latest data on value change
         latest.on("value", x => updatePlant(x, i));
     }
 });

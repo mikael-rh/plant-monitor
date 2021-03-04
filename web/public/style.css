@@ -77,14 +77,19 @@ button:focus {
     color: white;
 }
 
-.bar {
+.bar-frame {
+    position: relative;
     border-radius: 3px;
     background: #ddd;
-    margin-top: 15px;
-    overflow: hidden;
+    margin-top: 30px;
 }
 
-.bar-fill {
+.bar-tick {
+    position:absolute;
+    top: -18px;
+}
+
+.bar {
     border-radius: 3px;
     background: #9ccc65;
     padding: 5px;
@@ -94,11 +99,10 @@ button:focus {
 }
 
 .label {
-    float: right;
     font-size: 14px;
     opacity: 0.7;
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
