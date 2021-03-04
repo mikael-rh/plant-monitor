@@ -69,7 +69,7 @@ function updateTheme() {
     let darkTheme = localStorage.getItem("theme") === "dark";
     let symbol = darkTheme ? "sun" : "moon";
     $("#theme-button").html(`<i class='fas fa-${symbol}'></i>`);
-    $("body").toggleClass("dark", darkTheme);
+    $("body").toggleClass("dark-theme", darkTheme);
 }
 
 document.addEventListener("DOMContentLoaded", _ => {

@@ -1,0 +1,8 @@
+body.dark-theme, body.dark-theme * {
+    color: white;
+
+    --primary-color: #2e7d32 !important;
+    --bg-color: #101010;
+    --card-color: #212121;
+    --border-color: rgba(255, 255, 255, 0.15);
+}
