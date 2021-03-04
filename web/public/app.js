@@ -14,7 +14,7 @@ function createBar(content, unit = "", min = 0, max = 1) {
 
     let fill = $(`<div class="bar bar-${name}"></div>`);
     fill.html(`${content}: <span class="bar-value"></span>${unit}`);
-    fill.data("min", min).data("max", max);
+    fill.data("min", min).data("max", max).data("unit", unit);
     bar.append(fill);
 
     return bar;
@@ -29,7 +29,7 @@ function createSite() {
             `<b>Plant ${i + 1}</b>` +
             '<span class="label" style="float:right;"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
         );
-        plant.append(createBar("Moisture", "", 0, 1));
+        plant.append(createBar("Moisture", "%", 0, 1));
 
         plants.append(plant);
     }
@@ -43,16 +43,19 @@ function createSite() {
 function updateBar(bar, value) {
     let min = bar.data("min");
     let max = bar.data("max");
+    let unit = bar.data("unit");
 
     let width = (value - min) / (max - min);
     bar.css("width", (width * 100) + "%");
-    bar.find(".bar-value").text(value.toFixed(2));
+
+    let fmtValue = value;
+    if (unit === "%") fmtValue *= 100;
+    bar.find(".bar-value").text(fmtValue.toFixed(1));
 }
 
 function updatePlant(snapshot, index) {
     let plant = $(`#plant${index}`);
     if (snapshot.exists()) {
-        console.log("Updated data for plant " + index);
         let data = snapshot.val();
         plant.find(".timestamp").text(data["timestamp"].split(".")[0]);
         // Display soil moisture in percent
@@ -62,8 +65,21 @@ function updatePlant(snapshot, index) {
     }
 }
 
+function updateTheme() {
+    let darkTheme = localStorage.getItem("theme") === "dark";
+    let symbol = darkTheme ? "sun" : "moon";
+    $("#theme-button").html(`<i class='fas fa-${symbol}'></i>`);
+    $("body").toggleClass("dark", darkTheme);
+}
+
 document.addEventListener("DOMContentLoaded", _ => {
     createSite();
+    updateTheme();
+
+    $("#theme-button").click(() => {
+        localStorage.setItem("theme", localStorage.getItem("theme") === "dark" ? "light" : "dark");
+        updateTheme();
+    });
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
