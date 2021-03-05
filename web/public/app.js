@@ -1,7 +1,8 @@
 const PLANT_COUNT = 8;
 
-function clamp(val, min, max) {
-    return Math.max(Math.min(val, max), min);
+function debugMode(state) {
+    localStorage.setItem("debugMode", state ? "true" : "false");
+    location.href = "";
 }
 
 function createBar(content, unit = "", min = 0, max = 1) {
@@ -80,6 +81,10 @@ document.addEventListener("DOMContentLoaded", _ => {
         localStorage.setItem("theme", localStorage.getItem("theme") === "dark" ? "light" : "dark");
         updateTheme();
     });
+
+    if (localStorage.getItem("debugMode") === "true") {
+        console.log("DEBUG MODE ACTIVE\nDatabase disabled\n\nTo exit debug mode, type 'debugMode(false)'");
+    }
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
