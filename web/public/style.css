@@ -58,9 +58,9 @@ a {
 @media only screen and (min-width: 750px) {
     #mainWrapper {
         grid-template-areas:
-        "header toolbar"
-        "plants plants"
-        "attributions attributions";
+            "header toolbar"
+            "plants plants"
+            "attributions attributions";
     }
 
     #toolbar {
@@ -111,7 +111,6 @@ button.important {
 button:active {
     border-bottom-width: 1px;
     top: 2px;
-    margin-bottom: 2px;
 }
 
 button:focus {
