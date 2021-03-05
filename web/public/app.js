@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", _ => {
 
     if (localStorage.getItem("debugMode") === "true") {
         console.log("DEBUG MODE ACTIVE\nDatabase disabled\n\nTo exit debug mode, type 'debugMode(false)'");
+        return;
     }
 
     // Your web app's Firebase configuration
