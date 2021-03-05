@@ -74,7 +74,7 @@ a {
     }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 749px) {
     #mainWrapper {
         grid-template-areas:
             "plants"
