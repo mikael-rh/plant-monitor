@@ -48,12 +48,16 @@ a {
 }
 
 @media only screen and (max-width: 750px) {
+    #mainWrapper > * {
+        margin: 40px 20px;
+    }
+
     #mainHeader {
         display: none;
     }
 }
 
-@media only screen and (max-height: 800px) {
+@media only screen and (max-height: 750px) {
     #mainHeader {
         display: none;
     }
