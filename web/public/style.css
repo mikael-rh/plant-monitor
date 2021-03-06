@@ -18,41 +18,38 @@ a {
 
 #mainWrapper {
     display: grid;
-
     max-width: 1000px;
     padding: 40px;
     margin: 0 auto;
     gap: 40px;
 }
 
-#mainHeader {
-    grid-area: header;
-
+#mainWrapper > * {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
+}
+
+#mainHeader {
+    grid-area: header;
 }
 
 #toolbar {
     grid-area: toolbar;
-
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 20px;
 }
 
 #plants {
     grid-area: plants;
-
     display: grid;
     flex: 1;
-    grid-gap: 20px;
+    gap: 20px;
 }
 
 #attributions {
     grid-area: attributions;
+    display: block;
+    opacity: 0.5 !important;
 }
 
 @media only screen and (min-width: 750px) {
@@ -110,6 +107,8 @@ button.important {
 
 button:active {
     border-bottom-width: 1px;
+    margin-bottom: 2px;
+    height: 42px;
     top: 2px;
 }
 
@@ -145,7 +144,7 @@ button:focus {
 
 .label {
     font-size: 14px;
-    opacity: 0.7;
+    opacity: 0.7 !important;
 }
 
 .hidden {
