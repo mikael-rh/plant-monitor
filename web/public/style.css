@@ -128,7 +128,12 @@ button:focus {
     position: relative;
     border-radius: 3px;
     background-color: var(--bg-color);
-    margin-top: 20px;
+    margin-top: 30px;
+}
+
+.bar-tick {
+    position: absolute;
+    top: -18px;
 }
 
 .bar {

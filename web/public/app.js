@@ -9,13 +9,16 @@ function createBar(content, unit = "", min = 0, max = 1) {
     // Create a valid name from content string
     let name = content.toLowerCase().replace(/ /g, "-");
 
-    let barFrame = $(`<div class="bar-frame"></div>`);
-    let bar = $(`<div class="bar bar-${name}"></div>`);
-    bar.html(`${content}: <span class="bar-value"></span>${unit}`);
-    bar.data("min", min).data("max", max).data("unit", unit);
-    barFrame.append(bar);
+    let bar = $(`<div class="bar-frame"></div>`);
+    bar.html(`<div class="label bar-tick">${min}</div>` +
+        `<div class="label bar-tick" style="right:0;">${max}</div>`);
 
-    return barFrame;
+    let fill = $(`<div class="bar bar-${name}"></div>`);
+    fill.html(`${content}: <span class="bar-value"></span>${unit}`);
+    fill.data("min", min).data("max", max).data("unit", unit);
+    bar.append(fill);
+
+    return bar;
 }
 
 function createSite() {
