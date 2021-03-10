@@ -30,7 +30,7 @@ function createSite() {
             `<b>Plant ${i + 1}</b>` +
             '<span class="label" style="float:right;"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
         );
-        plant.append(createBar("Moisture", "%", 0, 1));
+        plant.append(createBar("Moisture", "", 0, 2));
 
         plants.append(plant);
     }
@@ -51,7 +51,7 @@ function updateBar(bar, value) {
 
     let fmtValue = value;
     if (unit === "%") fmtValue *= 100;
-    bar.find(".bar-value").text(fmtValue.toFixed(1));
+    bar.find(".bar-value").text(fmtValue.toFixed(2));
 }
 
 function updatePlant(snapshot, index) {
