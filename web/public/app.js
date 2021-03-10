@@ -1,4 +1,4 @@
-const PLANT_COUNT = 8;
+const PLANT_COUNT = 7;
 
 function debugMode(state) {
     localStorage.setItem("debugMode", state ? "true" : "false");
