@@ -1,5 +1,15 @@
 const PLANT_COUNT = 7;
 
+const PLANT_TITLES = [
+    "Plante 4",
+    "Plante 7",
+    "Plante 10",
+    "Plante 13",
+    "Regolitt 100%",
+    "Plantejord u/ fr&oslash;",
+    "Plante 1"
+];
+
 function debugMode(state) {
     localStorage.setItem("debugMode", state ? "true" : "false");
     location.href = "";
@@ -10,8 +20,8 @@ function createBar(content, unit = "", min = 0, max = 1) {
     let name = content.toLowerCase().replace(/ /g, "-");
 
     let bar = $(`<div class="bar-frame"></div>`);
-    bar.html(`<div class="label bar-tick">${min}</div>` +
-        `<div class="label bar-tick" style="right:0;">${max}</div>`);
+    // bar.html(`<div class="label bar-tick">${min}</div>` +
+    //     `<div class="label bar-tick" style="right:0;">${max}</div>`);
 
     let fill = $(`<div class="bar bar-${name}"></div>`);
     fill.html(`${content}: <span class="bar-value"></span>${unit}`);
@@ -27,10 +37,10 @@ function createSite() {
     for (let i = 0; i < PLANT_COUNT; i++) {
         let plant = $(`<div class="card plant" id="plant${i}"></div>`);
         plant.html(
-            `<b>Plant ${i + 1}</b>` +
+            `<b>${PLANT_TITLES[i]}</b>` +
             '<span class="label" style="float:right;"><i class="fas fa-clock"></i>&nbsp;&nbsp;<span class="timestamp"></span>'
         );
-        plant.append(createBar("Moisture", "", 0, 2));
+        plant.append(createBar("Moisture", "%", 0, 1));
 
         plants.append(plant);
     }
@@ -49,9 +59,13 @@ function updateBar(bar, value) {
     let width = (value - min) / (max - min);
     bar.css("width", (width * 100) + "%");
 
+    let precision = 2;
     let fmtValue = value;
-    if (unit === "%") fmtValue *= 100;
-    bar.find(".bar-value").text(fmtValue.toFixed(2));
+    if (unit === "%") {
+        precision = 0;
+        fmtValue *= 100;
+    }
+    bar.find(".bar-value").text(fmtValue.toFixed(precision));
 }
 
 function updatePlant(snapshot, index) {
